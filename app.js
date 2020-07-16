@@ -2,12 +2,19 @@ const express = require('express');
 const app = express(); //execute express spt fungsi, tanda () berarti telah di exekusi
 const morgan = require('morgan');//ini untuk logger
 const bodyParser = require("body-parser"); //untuk menangkap http request dari http
+const mongoose = require("mongoose");
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 const { use } = require('./api/routes/products');
 
-app.use(morgan('dev'));
+mongoose.connect(
+"mongodb+srv://wahyono17:"+ process.env.MONGO_ATLAS_PW +
+"@latihan1.vvjam.mongodb.net/Latihan1?retryWrites=true&w=majority",{
+    useNewUrlParser: true, useUnifiedTopology: true,
+});
+
+app.use(morgan('dev'));//untuk membuat log, supaya bisa di baca
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
