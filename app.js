@@ -14,6 +14,8 @@ mongoose.connect(
 "@latihan1.vvjam.mongodb.net/Latihan1?retryWrites=true&w=majority",{
     useNewUrlParser: true, useUnifiedTopology: true,
 });
+//ini untuk implementasi full promise di mongoose
+mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));//untuk membuat log, supaya bisa di baca
 app.use(bodyParser.urlencoded({ extended: false }));
