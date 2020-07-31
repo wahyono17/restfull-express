@@ -9,6 +9,7 @@ const orderRoutes = require('./api/routes/orders');
 const { use } = require('./api/routes/products');
 
 mongoose.connect(
+//process.env.MONGO_ATLAS_PW ada di nodemon.json
 "mongodb+srv://wahyono17:"+ process.env.MONGO_ATLAS_PW +
 "@latihan1.vvjam.mongodb.net/Latihan1?retryWrites=true&w=majority",{
     useNewUrlParser: true, useUnifiedTopology: true,
