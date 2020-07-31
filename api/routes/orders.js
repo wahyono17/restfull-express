@@ -9,6 +9,8 @@ const Product = require("../models/product");
 router.get('/', (req, res, next) => {
     Order.find()
     .select("product quantity _id")
+    //populate atau bisa juga pakai lookup aggrate
+    .populate('product',['name','price'])//parameter pertama ambil ref dari model, parameter kedua list yg akan ditampilkan
     .exec()
     .then(docs => {
       res.status(200).json({
@@ -73,6 +75,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/:orderId', (req, res, next) => {
     Order.findById(req.params.orderId)
+    .populate('product',['name','price'])//parameter pertama ambil ref dari model, parameter kedua list yg akan ditampilkan
     .exec()
     .then(order => {
       if (!order) {
