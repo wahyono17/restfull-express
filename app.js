@@ -18,6 +18,7 @@ mongoose.connect(
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));//untuk membuat log, supaya bisa di baca
+app.use('/uploads', express.static('uploads'));//menjadikan folder upload sebagai public
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
