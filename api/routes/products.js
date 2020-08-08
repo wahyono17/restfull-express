@@ -5,14 +5,6 @@ const multer = require('multer');
 
 //const upload = multer({dest: 'uploads/'});//kode lama langsung upload
 
-const multerMid = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-  },
-})
-
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads/');
@@ -26,7 +18,6 @@ const storage = multer.diskStorage({
     cb(null, uniqueSuffix + ext.substr(dot));//ambil setelah . sebagai extension
   }
 });
-
 
 const fileFilter = (req, file, cb) => {
   // jika jpg dan png maka di terima, selain itu riject
