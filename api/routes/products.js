@@ -71,12 +71,12 @@ router.get("/", (req, res, next) => {
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, single artinya upload 1 file saja
 router.post("/", upload.single('productImage'), (req, res, next) => {
-  console.log(req.file);
+  //console.log(req.file);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     price: req.body.price,
-    productImage: req.file.path
+    productImage: req.file.filename
   });
   product
     .save()
