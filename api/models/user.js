@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.set('useCreateIndex', true);
+mongoose.set('useCreateIndex', true);//ini untuk menghilangkan warning
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
