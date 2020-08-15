@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
-const { use } = require('./api/routes/products');
+//const { use } = require('./api/routes/products'); //ini di matikan karena tidak di temukan untuk apa, jika ada error bisa dinyalakan lagi
+const userRoutes = require('./api/routes/user');
 
 mongoose.connect(
 //process.env.MONGO_ATLAS_PW ada di nodemon.json
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 
 app.use('/products', productRoutes); //semua ke /product akan di lempar ke productRoutes
 app.use('/orders', orderRoutes);
+app.use("/user", userRoutes);
 
 //ini artinya jika request yg tidak di tangkap oleh manapun
 app.use((req,res,next)=>{
