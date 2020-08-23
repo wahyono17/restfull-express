@@ -2,143 +2,163 @@ const mongoose = require("mongoose");
 const Product = require("../models/product");
 
 
-exports.products_get_all = (req, res, next) => {
+exports.allProduct = (req, res, next) => {
     Product.find()
-      .select("name price _id productImage")
+      .select("name description unit price productImage _id")
       .exec()
       .then(docs => {
-        //console.log(docs);
         const response = {
-          count: docs.length,
-          products: docs.map(doc => {
-            return {
-              name: doc.name,
-              price: doc.price,
-              productImage: doc.productImage,
-              _id: doc._id,
-              request: {
-                type: "GET",
-                url: "http://localhost:3000/products/" + doc._id
-              }
-            };
-          })
+          data:docs,
+          status:200,
         };
-
         res.status(200).json(response);
-
       })
       .catch(err => {
         console.log(err);
         res.status(500).json({
-          error: err
+          error: err, status:500
         });
       });
 }
 
-exports.products_post = (req, res, next) => {
-  //console.log(req.file);
+exports.myProduct = (req,res,next)=>{
+  Product.find({user_id:req.userData.userId})
+    .select("name description unit price productImage _id")
+    .exec()
+    .then(docs=>{
+      //console.log(docs);
+      const response = {
+        data:docs,
+        status:200,
+      }
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err, status:500
+      });
+    });
+}
+
+exports.productPost = (req, res, next) => {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
+    user_id: req.userData.userId,
     name: req.body.name,
+    description:req.body.description,
+    unit:req.body.unit,
     price: req.body.price,
     productImage: req.file.filename
   });
   product
     .save()
     .then(result => {
-      console.log(result);
       res.status(201).json({
-        message: "Created product successfully",
-        createdProduct: {
+        data: {
           name: result.name,
+          description:result.description,
+          unit:result.unit,
           price: result.price,
           productImage : result.productImage,
           _id: result._id,
-          request: {
-              type: 'GET',
-              url: "http://localhost:3000/products/" + result._id
-          }
-      }
+        },
+        status: 201,
       });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err, status:500
       });
     });
 }
 
-exports.products_get_product = (req, res, next) => {
+exports.productGet = (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
-    .select("name price _id productImage")
+    .select("name description unit price productImage _id")
     .exec()
     .then(doc => {
-      console.log("From database", doc);
       if (doc) {
         res.status(200).json({
-            product: doc,
-            request: {
-                type: 'GET',
-                url: 'http://localhost:3000/products'
-            }
+            data: doc,
+            status : 200,
         });
       } else {
         res
           .status(404)
-          .json({ message: "No valid entry found for provided ID" });
+          .json({ message: "No valid entry found for provided ID", status:404 });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ error: err, status:500 });
     });
 }
 
-exports.products_patch_product = (req, res, next) => {
+exports.productPatch = (req, res, next) => {
   const id = req.params.productId;
 
-  //** ini hanya untuk mengecek apakah di ganti semua atau hanya sebagian saja */
-  const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value;
-  }
-  //**---------------- */
+  //ini jika tidak ada gambar baru maka memakai gambar yang ada didatabase, jika ada maka ambil yang baru
+  let newImage;
+    if(req.file){
+      newImage = req.file.filename;
+    }else{
+      newImage = req.currentProduct.productImage;
+    }
 
-  Product.updateOne({ _id: id }, { $set: updateOps })
+  Product.updateOne({ _id: id }, {
+    name:req.body.name,
+    description:req.body.description,
+    unit:req.body.unit,
+    price:req.body.price,
+    productImage:newImage,
+  })
     .exec()
     .then(result => {
-      console.log(result);
-      res.status(200).json({
-        message: 'Product updated',
-        request: {
-            type: 'GET',
-            url: 'http://localhost:3000/products/' + id
-        }
-      });
+      Product.findById(id)
+        .select("name description unit price productImage _id")
+        .exec()
+        .then(doc => {
+          if (doc) {
+            res.status(200).json({
+                data: doc,
+                status : 200,
+            });
+          } else {
+            res
+              .status(404)
+              .json({ message: "No valid entry found for provided ID", status:404});
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ error: err, status:500});
+        });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err, status: 500
       });
     });
 }
 
-exports.products_delete_product = (req, res, next) => {
+exports.deleteProduct = (req, res, next) => {
   const id = req.params.productId;
   Product.deleteOne({ _id: id })
     .exec()
     .then(result => {
       res.status(200).json({
         message: 'Product deleted',
+        status:200
       });
     })
     .catch(err => {
       console.log(err);
       res.status(500).json({
-        error: err
+        error: err, status:500
       });
     });
 }

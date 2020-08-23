@@ -3,21 +3,25 @@ const router = express.Router();
 
 
 const checkAuth = require('../middleware/check-auth');
-
 const ProductController = require("../controllers/products");
 const UploadService = require("../service/upload_image");
+const CurrentProduct = require("../service/productById");
 
-router.get("/", checkAuth, ProductController.products_get_all);
+router.get("/", checkAuth, ProductController.allProduct);
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, single artinya upload 1 file saja
-//singe adalah bawaan multer library
-router.post("/", checkAuth, UploadService.upload_image.single('productImage'), ProductController.products_post);
+//single adalah bawaan multer library
+router.post("/", checkAuth, UploadService.single('productImage'),
+    ProductController.productPost);
 
-router.get("/:productId", checkAuth, ProductController.products_get_product);
+router.get("/myproducts", checkAuth, ProductController.myProduct);
 
-router.patch("/:productId", checkAuth, ProductController.products_patch_product);
+router.get("/:productId", checkAuth, ProductController.productGet);
 
-router.delete("/:productId", checkAuth, ProductController.products_delete_product);
+router.post("/:productId", checkAuth, UploadService.single('productImage'), CurrentProduct,
+    ProductController.productPatch);
+
+router.delete("/:productId", checkAuth, CurrentProduct, ProductController.deleteProduct);
 
 
 module.exports = router;
