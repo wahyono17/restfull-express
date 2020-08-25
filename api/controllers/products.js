@@ -42,6 +42,7 @@ exports.myProduct = (req,res,next)=>{
 }
 
 exports.productPost = (req, res, next) => {
+  console.log(req.body);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     user_id: req.userData.userId,
@@ -49,22 +50,29 @@ exports.productPost = (req, res, next) => {
     description:req.body.description,
     unit:req.body.unit,
     price: req.body.price,
-    productImage: req.file.filename
+    //productImage: req.file.filename
   });
   product
     .save()
     .then(result => {
+
       res.status(201).json({
         data: {
           name: result.name,
           description:result.description,
           unit:result.unit,
           price: result.price,
-          productImage : result.productImage,
+          //productImage : result.productImage,
           _id: result._id,
         },
         status: 201,
       });
+
+      //req.product_id = result._id;
+      //console.log(result);
+      req.product = result;
+      next();
+
     })
     .catch(err => {
       console.log(err);
