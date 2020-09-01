@@ -6,14 +6,17 @@ const checkAuth = require('../middleware/check-auth');
 const ProductController = require("../controllers/products");
 const UploadService = require("../service/upload_image");
 const CurrentProduct = require("../service/productById");
-const ProductImageController = require("../controllers/productImageController");
+const ProductPostImageController = require("../controllers/productPostImageController");
+const ProductPostController = require("../controllers/productPostController");
+const ProductPostQtyController = require("../controllers/ProductPostQtyController");
+const ProductResource = require("../resources/productResource");
 
 router.get("/", checkAuth, ProductController.allProduct);
 
-//upload didepan midleware lain artinya upload dulu baru midleware lain, single artinya upload 1 file saja
-//single adalah bawaan multer library
-router.post("/", checkAuth, ProductController.productPost); //, UploadService.single('productImage')
-    //, ProductImageController);
+//upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
+//single adalah bawaan multer library, bisa juga array
+router.post("/", checkAuth, UploadService.array('productImage',4) ,ProductPostController
+    ,ProductPostQtyController ,ProductPostImageController,ProductResource);
 
 
 router.get("/myproducts", checkAuth, ProductController.myProduct);

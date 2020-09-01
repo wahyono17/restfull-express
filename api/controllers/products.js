@@ -42,7 +42,7 @@ exports.myProduct = (req,res,next)=>{
 }
 
 exports.productPost = (req, res, next) => {
-  console.log(req.body);
+  //console.log(req.files);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     user_id: req.userData.userId,
@@ -56,17 +56,17 @@ exports.productPost = (req, res, next) => {
     .save()
     .then(result => {
 
-      res.status(201).json({
-        data: {
-          name: result.name,
-          description:result.description,
-          unit:result.unit,
-          price: result.price,
-          //productImage : result.productImage,
-          _id: result._id,
-        },
-        status: 201,
-      });
+      // res.status(201).json({
+      //   data: {
+      //     name: result.name,
+      //     description:result.description,
+      //     unit:result.unit,
+      //     price: result.price,
+      //     //productImage : result.productImage,
+      //     _id: result._id,
+      //   },
+      //   status: 201,
+      // });
 
       //req.product_id = result._id;
       //console.log(result);
