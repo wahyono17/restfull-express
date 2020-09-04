@@ -41,6 +41,7 @@ exports.myProduct = (req,res,next)=>{
     });
 }
 
+/*
 exports.productPost = (req, res, next) => {
   //console.log(req.files);
   const product = new Product({
@@ -81,6 +82,7 @@ exports.productPost = (req, res, next) => {
       });
     });
 }
+*/
 
 exports.productGet = (req, res, next) => {
   const id = req.params.productId;
