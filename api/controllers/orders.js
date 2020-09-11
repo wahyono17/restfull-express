@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Order = require("../models/order");
 const Product = require("../models/product");
 
+//karena di controller ketika save memakai instansi model dengan nama product maka populate juga dengan product huruf kecil
 exports.orders_get_all = (req, res, next) => {
     Order.find()
     .select("product quantity _id")
@@ -10,6 +11,8 @@ exports.orders_get_all = (req, res, next) => {
     .populate('product',['name','price'])//parameter pertama ambil ref dari model, parameter kedua list yg akan ditampilkan
     .exec()
     .then(docs => {
+      res.send(docs);
+      /*
       res.status(200).json({
         count: docs.length,
         orders: docs.map(doc => {
@@ -24,6 +27,7 @@ exports.orders_get_all = (req, res, next) => {
           };
         })
       });
+      */
     })
     .catch(err => {
       res.status(500).json({

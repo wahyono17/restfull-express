@@ -7,13 +7,16 @@ const productResource = (req,res,next)=>{
             unit:req.product.unit,
             quantity:req.productQty.quantity,
             price: req.product.price,
-            productImage:req.image.map(function(Element){
-                return {
-                    filename : Element.filename
-                }
-            }),
         }
     })
 }
 
 module.exports = productResource;
+
+/*
+productImage:req.image.map(function(Element){
+                return {
+                    filename : Element.filename
+                }
+            }),
+*/

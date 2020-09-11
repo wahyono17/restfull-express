@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    date:{type:Date},
     product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },//ref ke product model
     quantity: { type: Number, default: 1 }
 });
