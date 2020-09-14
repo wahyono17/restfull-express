@@ -1,4 +1,6 @@
 const orderPostResource = (req,res,next)=>{
+    res.send(req.body);
+    /*
     res.status(201).json({
         data:{
             _id: req.order._id,
@@ -17,6 +19,7 @@ const orderPostResource = (req,res,next)=>{
         status:201,
         error:0,
     })
+    */
 }
 
 module.exports = orderPostResource;

@@ -4,7 +4,7 @@ const orderSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     order_id:{type:mongoose.Types.ObjectId,ref:'Order',required:true},
     code:{type:Number,required:true},
-    description:{type:String,required:true},
+    description:{type:String},
     date:{type:Date},
 });
 
