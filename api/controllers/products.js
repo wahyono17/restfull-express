@@ -5,7 +5,7 @@ const ProductQty = require("../models/productQuantity");
 
 exports.allProduct = (req, res, next) => {
     Product.find()
-      .select("name description unit price productImage _id")
+      .select("user_id name description unit price productImage _id")
       .exec()
       .then(docs => {
         const response = {

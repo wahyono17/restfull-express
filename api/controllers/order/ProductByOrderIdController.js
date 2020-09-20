@@ -1,14 +1,13 @@
-const Product = require("../models/product");
+const Order = require("../../models/order");
 
 const producById = (req,res,next) =>{
-
-    const id = req.body.productId;
-    Product.findById(id)
+  if(req.body.code == 3){
+    const id = req.body.order_id;
+    Order.findById(id)
       .exec()
-      .then(result => {
-        if (result) {
-          req.product = result
-
+      .then(doc => {
+        if (doc) {
+          req.body = doc
         } else {
           res
             .status(404)
@@ -20,6 +19,9 @@ const producById = (req,res,next) =>{
         console.log(err);
         res.status(500).json({ error: err });
       });
+  }
+  else next();
+
 }
 
 module.exports = producById;

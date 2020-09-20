@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const UserController = require ("../controllers/user");
+const UserController = require ("../controllers/UserController");
 
 //ini untuk daftar user, jika tidak di temukan email yg sama, maka bisa di create user baru
 router.post("/signup", UserController.user_singup );

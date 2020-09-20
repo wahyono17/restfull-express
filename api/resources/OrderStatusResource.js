@@ -1,5 +1,9 @@
 const orderPostResource = (req,res,next)=>{
-    res.send(req.body);
+    if(req.body.code == 3){
+        res.send(req.body);
+    }
+    next();
+
     /*
     res.status(201).json({
         data:{

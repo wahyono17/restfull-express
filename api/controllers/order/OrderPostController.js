@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const Order = require("../models/order");
-const Product = require("../models/product");
+const Order = require("../../models/order");
+const Product = require("../../models/product");
 
 const orderPost = (req, res, next) => {
     /*********ini hanya validasi untuk cek apakah product ada atau tidak */

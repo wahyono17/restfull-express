@@ -5,10 +5,12 @@ const bodyParser = require("body-parser"); //untuk menangkap http request dari h
 const mongoose = require("mongoose");
 
 const productRoutes = require('./api/routes/products');
-const orderRoutes = require('./api/routes/orders');
+const orderRoutes = require('./api/routes/ordersRoutes');
 //const { use } = require('./api/routes/products'); //ini di matikan karena tidak di temukan untuk apa, jika ada error bisa dinyalakan lagi
-const userRoutes = require('./api/routes/user');
+const userRoutes = require('./api/routes/userRoutes');
 const orderStatusRoutes = require('./api/routes/orderStatusRoutes');
+const basketRoutes = require('./api/routes/basketRoutes');
+const profileRoutes = require('./api/routes/profileRoutes');
 
 mongoose.connect(
 //process.env.MONGO_ATLAS_PW ada di nodemon.json
@@ -43,6 +45,8 @@ app.use('/products', productRoutes); //semua ke /product akan di lempar ke produ
 app.use('/orders', orderRoutes);
 app.use("/user", userRoutes);
 app.use("/orderstatus",orderStatusRoutes);
+app.use("/basket",basketRoutes);
+app.use("/profile",profileRoutes);
 
 //ini artinya jika request yg tidak di tangkap oleh manapun
 app.use((req,res,next)=>{
