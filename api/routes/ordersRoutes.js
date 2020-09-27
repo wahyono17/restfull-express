@@ -7,12 +7,12 @@ const OrderPostController = require('../controllers/order/OrderPostController');
 const ProductByIdService = require('../service/productOrderById');
 const OrderStatusPostController = require('../controllers/OrderStatusPostController');
 const OrderPostResource = require('../resources/OrderPostResource');
-const OrderPostBucketController = require('../controllers/order/OrderPostBucketController');
+const OrderPostBasketController = require('../controllers/order/OrderPostBasketController');
 
 // Handle incoming GET requests to /orders
 router.get('/', checkAuth, OrdersController.orders_get_all );
 
-router.post('/',OrderPostBucketController);
+router.post('/',OrderPostBasketController);
 // router.post('/', checkAuth, ProductByIdService ,OrderPostController, OrderStatusPostController
 //         , OrderPostResource);
 
