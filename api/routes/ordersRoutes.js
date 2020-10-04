@@ -3,16 +3,17 @@ const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 
 const OrdersController = require('../controllers/orders');
-const OrderPostController = require('../controllers/order/OrderPostController');
-const ProductByIdService = require('../service/productOrderById');
-const OrderStatusPostController = require('../controllers/OrderStatusPostController');
-const OrderPostResource = require('../resources/OrderPostResource');
+// const OrderPostController = require('../controllers/order/OrderPostController');
+// const ProductByIdService = require('../service/productOrderById');
+// const OrderStatusPostController = require('../controllers/OrderStatusPostController');
+// const OrderPostResource = require('../resources/OrderPostResource');
 const OrderPostBasketController = require('../controllers/order/OrderPostBasketController');
+const OrderItemPostController = require('../controllers/order/OrderItemPostController');
 
 // Handle incoming GET requests to /orders
 router.get('/', checkAuth, OrdersController.orders_get_all );
 
-router.post('/',OrderPostBasketController);
+router.post('/',checkAuth,OrderPostBasketController, OrderItemPostController);
 // router.post('/', checkAuth, ProductByIdService ,OrderPostController, OrderStatusPostController
 //         , OrderPostResource);
 

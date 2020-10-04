@@ -5,7 +5,7 @@ const BasketHeader = (req, res, next) => {
     Basket.findOne({user_id:req.userData.userId, user_product_id:req.body.user_product_id})
     .exec()
     .then(result=>{
-        //jika tidak ditemukan maka tulisa baru, jika tidak maka berarti 1 header di pakai banyak item
+        //jika tidak ditemukan maka tulis baru, jika tidak maka berarti 1 header di pakai banyak item
         if(!result){
             const basket = new Basket({
                 _id:mongoose.Types.ObjectId(),
@@ -16,11 +16,13 @@ const BasketHeader = (req, res, next) => {
             .then(header=>{
                 req.headerId = header._id;
                 next();
+                //next post basket item
             })
             .catch()
         }else{
             req.headerId = result._id;
             next();
+            //next post basket item
         }
     })
     .catch(err => {
