@@ -27,35 +27,37 @@ const MyBasket = (req,res,next)=>{
                 as:"basketitem"
             }
         },
-        {
-            $unwind:{path:"$basketitem",preserveNullAndEmptyArrays: true}
-        },
-        {
-            $lookup:{
-                from:"products",
-                localField:"basketitem.product_id",
-                foreignField:"_id",
-                as:"basketitem.product"
-            }
-        },
+        // {
+        //     $unwind:{path:"$basketitem",preserveNullAndEmptyArrays: true}
+        // },
+        // {
+        //     $lookup:{
+        //         from:"products",
+        //         localField:"basketitem.product_id",
+        //         foreignField:"_id",
+        //         as:"basketitem.product"
+        //     }
+        // },
         {
           $group:{
               _id:"$_id",
               user_id:{$first:"$user_id"},
               user_product_id:{$first:"$user_product_id"},
+              total:{$first:"$total"},
               profile:{$first:"$profile"},
-              basket_item:{$push:{
-                  product_id:"$basketitem.product_id",
-                  quantity:"$basketitem.quantity",
-                  product_name:"$basketitem.product"
-              }}
+              basketItem:{$push:"$basketitem"}
+            //   basket_item:{$push:{
+            //       product:"$basketitem"
+            //       //product_id:"$basketitem.product_id",
+            //       //quantity:"$basketitem.quantity",
+            //       //product_name:"$basketitem.product"
+            //   }}
           }
         }
 
     ])
     .exec()
     .then(result=>{
-        //res.send(result);
         req.basket = result;
         //res.send(result);
         next();
