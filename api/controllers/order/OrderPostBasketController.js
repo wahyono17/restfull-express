@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Basket = require("../../models/basketHeader");
+const BasketHeader = require("../../models/basketHeader");
 const BasketItem = require("../../models/basketItem");
 const OrderHeader = require('../../models/orderHeader');
 //const OrderHeaderPostService = require("../../service/order/OrderHeaderPostService");
@@ -8,7 +8,7 @@ const OrderHeader = require('../../models/orderHeader');
 const OrderPost = (req,res,next)=>{
     //yang di kirim adalah berupa array basket id
     req.body.forEach(element => {
-        Basket.findById(element.id)
+        BasketHeader.findById(element.id)
         .exec()
         .then(result=>{
             //buat order header berdasarkan basket header
@@ -18,18 +18,19 @@ const OrderPost = (req,res,next)=>{
                 date:Date.now(),
                 store_id:result.user_product_id,
                 status_code:1,
+                total:result.total,
                 note:result.note,
             });
             orderHeader.save()
                 .then(orderHeader=>{
-                    //cari di basket detail bedasarkan basket id
+                    //cari di basket detail bedasarkan basket id, dan buat order detail
                     BasketItem.find({header_id:result._id})
                         .exec()
                         .then(basketItem=>{
                             req.arrayBasketItem = basketItem;
                             req.orderHeader = orderHeader;
                             next();
-                            //next ke orderDetailController karena harus post harga ambil dari product
+                            //next ke OrderItemPostController dan buat item order
                         })
                         .catch(err => {
                             res.status(500).json({
