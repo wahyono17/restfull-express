@@ -10,7 +10,7 @@ const orderSchema = mongoose.Schema({
     unit:{type:String},
     quantity: { type: Number, default: 1 },
     amount:{ type: Number, default: 1 },
-
+    basket_item_id:{ type: mongoose.Schema.Types.ObjectId },//di simpan supaya bisa didelete ketika create order item selesai di unsyncronous
 });
 
 module.exports = mongoose.model('OrderItem', orderSchema);

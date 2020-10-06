@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const OrderItem = require('../../models/orderItem');
 const basketItem = require('../../models/basketItem');
+const basketHeader = require('../../models/basketHeader');
 
 const OrderDetailPost = (req,res,next)=>{
     //hasil basket item adalah array
@@ -16,9 +17,25 @@ const OrderDetailPost = (req,res,next)=>{
             unit:element.unit,
             quantity:element.quantity,
             amount:element.amount,
+            basket_item_id:element._id
         });
         orderItem.save()
-            .then()
+            .then(orderItemResult=>{
+                //delete basket item dan basket header
+                basketItem.findById(orderItemResult.basket_item_id)
+                    .exec()
+                    .then(basketItemResult=>{
+                        //delete basket header
+                        basketHeader.findByIdAndDelete(basketItemResult.header_id).exec();
+                        //delete basketItem
+                        basketItem.deleteOne({id:basketItemResult._id}).exec();
+                    })
+                    .catch(err => {
+                        res.status(500).json({
+                          error: err, status:500
+                        });
+                    });
+            })
             .catch(err => {
                 res.status(500).json({
                   error: err, status:500
