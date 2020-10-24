@@ -50,7 +50,7 @@ app.use("/profile",profileRoutes);
 
 //ini artinya jika request yg tidak di tangkap oleh manapun
 app.use((req,res,next)=>{
-    const error = new Error('not found');
+    const error = new Error('end point not found');
     error.status = 404;
     next(error);
 });

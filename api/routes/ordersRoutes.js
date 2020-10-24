@@ -9,13 +9,20 @@ const OrdersController = require('../controllers/orders');
 // const OrderPostResource = require('../resources/OrderPostResource');
 const OrderPostBasketController = require('../controllers/order/OrderPostBasketController');
 const OrderItemPostController = require('../controllers/order/OrderItemPostController');
+const DirectOrderHeaderPostController = require('../controllers/order/DirectOrderHeaderPostController');
+const DirectOrderItemPostController = require('../controllers/order/DirectOrderItemPostController');
+const MyOrderController = require('../controllers/order/MyOrderGetController');
 
 // Handle incoming GET requests to /orders
 router.get('/', checkAuth, OrdersController.orders_get_all );
 
+router.get('/myorders', checkAuth, MyOrderController);
+
 router.post('/',checkAuth,OrderPostBasketController, OrderItemPostController);
 // router.post('/', checkAuth, ProductByIdService ,OrderPostController, OrderStatusPostController
 //         , OrderPostResource);
+
+router.post('/direct',checkAuth, DirectOrderHeaderPostController, DirectOrderItemPostController);
 
 router.get('/:orderId', checkAuth, OrdersController.orders_get_order);
 
