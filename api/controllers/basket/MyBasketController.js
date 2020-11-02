@@ -12,7 +12,7 @@ const MyBasket = (req,res,next)=>{
         {
             $lookup:{
                 from:"profiles",
-                localField:"user_product_id",
+                localField:"store_id",
                 foreignField:"user_id",
                 as: "profile"
             }
@@ -44,7 +44,7 @@ const MyBasket = (req,res,next)=>{
           $group:{
               _id:"$_id",
               user_id:{$first:"$user_id"},
-              user_product_id:{$first:"$user_product_id"},
+              store_id:{$first:"$store_id"},
               total:{$first:"$total"},
               profile:{$first:"$profile"},
               basketItem:{$push:"$basketitem"}

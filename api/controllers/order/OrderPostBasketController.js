@@ -15,7 +15,7 @@ const OrderPost = (req,res,next)=>{
                 _id: mongoose.Types.ObjectId(),
                 user_id: req.userData.userId,
                 date:Date.now(),
-                store_id:result.user_product_id,
+                store_id:result.store_id,
                 //status_code:1,
                 total:result.total,
                 note:result.note,

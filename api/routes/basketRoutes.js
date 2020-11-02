@@ -6,7 +6,8 @@ const BasketHeaderAddController = require('../controllers/basket/BasketHeaderAdd
 const MyBasketController = require('../controllers/basket/MyBasketController');
 const BasketResource = require('../resources/MyBasketResource');
 
-router.post('/', checkAuth, BasketHeaderAddController, BasketItemAddController);
-router.get('/', checkAuth, MyBasketController,BasketResource);
+router.post('/', checkAuth, BasketHeaderAddController.validate('postBasket'), BasketHeaderAddController.BasketHeader
+    , BasketItemAddController);
+router.get('/', checkAuth, MyBasketController ,BasketResource);
 
 module.exports = router;

@@ -18,6 +18,17 @@ const myOrder = (req,res,next)=>{
             }
         },
         {
+            $unwind:{
+                path: "$orderstatus",
+                preserveNullAndEmptyArrays: false
+            }
+        },
+        {
+            $match:{
+                "orderstatus.code":1//1 adalah code order created
+            }
+        },  
+        {
             $lookup:{
                 from:"profiles",
                 localField:"store_id",
@@ -37,8 +48,9 @@ const myOrder = (req,res,next)=>{
     .exec()
     .then(
         result=>{
-            //res.send(result);
+            // res.send(result);
             req.order = result;
+            next(); //next ke MyOrderResource
         }
     )
     .catch()

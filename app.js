@@ -2,6 +2,7 @@ const express = require('express');
 const app = express(); //execute express spt fungsi, tanda () berarti telah di exekusi
 const morgan = require('morgan');//ini untuk logger
 const bodyParser = require("body-parser"); //untuk menangkap http request dari http
+const { check, validationResult } = require('express-validator');
 const mongoose = require("mongoose");
 
 const productRoutes = require('./api/routes/products');
@@ -25,6 +26,7 @@ app.use(morgan('dev'));//untuk membuat log, supaya bisa di baca
 app.use('/uploads', express.static('uploads'));//menjadikan folder upload sebagai public
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 //ini untuk menonactive kan CORS, karena pasti beda server antara client dan server api
 app.use((req, res, next) => {

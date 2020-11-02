@@ -1,10 +1,11 @@
 const Profile = require("../../models/profile");
 const mongoose = require('mongoose');
+const { count } = require("../../models/profile");
 
 const postProfile = (req,res,next)=>{
     const ids = new mongoose.Types.ObjectId(req.userData.userId);
-
-    Profile.find({user_id:ids})
+    
+    Profile.findOne({user_id:ids})
     .exec()
     .then(result=>{
         //jika di temukan maka updateOne
@@ -22,10 +23,9 @@ const postProfile = (req,res,next)=>{
                     req.profile = findResult;
                     next();
                 })
-                .catch(Error)
-
+                .catch()
             })
-            .catch(Error)
+            .catch()
         }else{
             new Profile({
                 _id:mongoose.Types.ObjectId(),
@@ -40,10 +40,10 @@ const postProfile = (req,res,next)=>{
                 req.profile = createResult;
                 next();
             })
-            .catch(Error)
+            .catch()
         }
     })
-    .catch(Error)
+    .catch()
 
 }
 

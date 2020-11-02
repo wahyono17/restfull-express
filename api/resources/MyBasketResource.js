@@ -20,7 +20,7 @@ const myBasketResource = (req,res,next)=>{
 
         arrayResult.push({
             _id:element._id,
-            store_id:element.user_product_id,
+            store_id:element.store_id,
             store_name:element.profile[0].name,
             total:element.total,
             ftotal:'Rp ' + new Intl.NumberFormat().format(element.total),
@@ -53,7 +53,7 @@ module.exports = myBasketResource;
 //         });
 //         arrayResult.push({
 //             _id:element._id,
-//             store_id:element.user_product_id,
+//             store_id:element.store_id,
 //             store_name:element.profile[0].name,
 //             total:total,
 //             ftotal:'Rp ' + new Intl.NumberFormat().format(total),
