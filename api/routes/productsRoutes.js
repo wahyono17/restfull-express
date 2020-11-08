@@ -9,7 +9,8 @@ const CurrentProduct = require("../service/productById");
 //const ProductImagePostController = require("../controllers/productImagePostController");
 const ProductPostController = require("../controllers/productPostController");
 const ProductQuantityPostController = require("../controllers/ProductQuantityPostController");
-const GetMyProductController = require("../controllers/GetMyProductController");
+const GetMyProductController = require("../controllers/product/GetMyProductController");
+const MyProductResource = require("../resources/MyProductResource");
 const ProductResource = require("../resources/productResource");
 
 router.get("/", checkAuth, ProductController.allProduct);
@@ -23,7 +24,7 @@ router.post("/", checkAuth, UploadService.array('productImage',4) ,ProductPostCo
 router.post("/", checkAuth, ProductPostController
     ,ProductQuantityPostController ,ProductResource);
 
-router.get("/myproducts", checkAuth, GetMyProductController); //,ProductGetQtyController
+router.get("/myproducts", checkAuth, GetMyProductController,MyProductResource);
 
 router.get("/:productId", checkAuth, ProductController.productGet);
 

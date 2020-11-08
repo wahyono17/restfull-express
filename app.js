@@ -5,7 +5,7 @@ const bodyParser = require("body-parser"); //untuk menangkap http request dari h
 const { check, validationResult } = require('express-validator');
 const mongoose = require("mongoose");
 
-const productRoutes = require('./api/routes/products');
+const productRoutes = require('./api/routes/productsRoutes');
 const orderRoutes = require('./api/routes/ordersRoutes');
 //const { use } = require('./api/routes/products'); //ini di matikan karena tidak di temukan untuk apa, jika ada error bisa dinyalakan lagi
 const userRoutes = require('./api/routes/userRoutes');
