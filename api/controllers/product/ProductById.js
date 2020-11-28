@@ -1,14 +1,13 @@
-const Product = require("../models/product");
+const Product = require("../../models/product");
 
 const producById = (req,res,next) =>{
-
-    const id = req.body.productId;
+    const id = req.params.productId;
     Product.findById(id)
+      .select("productImage")
       .exec()
-      .then(result => {
-        if (result) {
-          req.product = result
-
+      .then(doc => {
+        if (doc) {
+          req.currentProduct = doc
         } else {
           res
             .status(404)

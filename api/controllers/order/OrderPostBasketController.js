@@ -33,7 +33,7 @@ const OrderPost = (req,res,next)=>{
                                 _id: mongoose.Types.ObjectId(),
                                 order_id:orderHeader._id,
                                 code:1,
-                                description:"order Created",
+                                description:"dipesan",
                                 date:Date.now(),
                             });
                             orderStatus.save()

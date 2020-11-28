@@ -7,7 +7,9 @@ const productResource = (req,res,next)=>{
             unit:req.product.unit,
             quantity:req.productQty.quantity,
             price: req.product.price,
-        }
+            fprice:'Rp ' + new Intl.NumberFormat().format(req.product.price),
+        },
+        status : 201
     })
 }
 

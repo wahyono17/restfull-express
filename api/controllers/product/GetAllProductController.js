@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const Product = require("../../models/product");
 
-const myProduct = (req,res,next)=>{
+const allProduct = (req,res,next)=>{
   const ids = req.userData.userId;
   Product.aggregate([
     {
       $match:{
-          user_id:new mongoose.Types.ObjectId(ids),
+          user_id:{$nin:[new mongoose.Types.ObjectId(ids)]},
           status:{$nin:['X']}
       }
     },
@@ -17,7 +17,15 @@ const myProduct = (req,res,next)=>{
         foreignField:"product_id",
         as: "quantity_docs"
       }
-    }
+    },
+    {
+      $lookup:{
+          from:"profiles",
+          localField:"user_id",
+          foreignField:"user_id",
+          as: "profile"
+      }
+    },
   ])
   .exec()
   .then(docs=>{
@@ -34,4 +42,4 @@ const myProduct = (req,res,next)=>{
   });
 }
 
-module.exports = myProduct;
+module.exports = allProduct;

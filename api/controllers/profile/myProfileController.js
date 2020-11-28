@@ -11,7 +11,12 @@ const myProfile = (req,res,next)=>{
             status : 200,
         });
     })
-    .catch()
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err, status:500
+        });
+      });
 }
 
 module.exports =  myProfile;

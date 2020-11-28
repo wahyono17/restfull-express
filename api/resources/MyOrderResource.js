@@ -1,4 +1,5 @@
 const MyOrderResource = (req,res,next)=>{
+    // let lang = req.params.lang;
     let arrayResult = [];
     req.order.forEach(element => {
         let arrayItem =[];

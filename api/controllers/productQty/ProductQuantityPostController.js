@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const PorductQty = require("../models/productQuantity");
+const ProductQty = require("../../models/productQuantity");
 
 const productQuantityPost = (req, res, next) => {
     //console.log(req.files);
-    const productQty = new PorductQty({
+    const productQty = new ProductQty({
       _id: new mongoose.Types.ObjectId(),
       product_id:req.product._id,
-      transaction_type:"opening product",
+      transaction_type:1, //opening product
       quantity:req.body.quantity,
     });
     productQty

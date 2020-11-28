@@ -4,7 +4,7 @@ const { count } = require("../../models/profile");
 
 const postProfile = (req,res,next)=>{
     const ids = new mongoose.Types.ObjectId(req.userData.userId);
-    
+
     Profile.findOne({user_id:ids})
     .exec()
     .then(result=>{
@@ -23,9 +23,19 @@ const postProfile = (req,res,next)=>{
                     req.profile = findResult;
                     next();
                 })
-                .catch()
+                .catch(err => {
+                    // console.log(err);
+                    res.status(500).json({
+                      error: err, status:500
+                    });
+                  });
             })
-            .catch()
+            .catch(err => {
+                // console.log(err);
+                res.status(500).json({
+                  error: err, status:500
+                });
+              });
         }else{
             new Profile({
                 _id:mongoose.Types.ObjectId(),
@@ -40,10 +50,20 @@ const postProfile = (req,res,next)=>{
                 req.profile = createResult;
                 next();
             })
-            .catch()
+            .catch(err => {
+                // console.log(err);
+                res.status(500).json({
+                  error: err, status:500
+                });
+              });
         }
     })
-    .catch()
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err, status:500
+        });
+      });
 
 }
 

@@ -1,4 +1,4 @@
-const myProductResource = (req,res,next)=>{
+const allProductResource = (req,res,next)=>{
 
     let arrayResult = [];
     req.product.forEach(element => {
@@ -14,6 +14,8 @@ const myProductResource = (req,res,next)=>{
 
         arrayResult.push({
             _id:element._id,
+            store_id:element.profile[0].user_id,
+            store_name:element.profile[0].name,
             name:element.name,
             description:element.description,
             unit:element.unit,
@@ -28,4 +30,4 @@ const myProductResource = (req,res,next)=>{
     })
 }
 
-module.exports = myProductResource;
+module.exports = allProductResource;

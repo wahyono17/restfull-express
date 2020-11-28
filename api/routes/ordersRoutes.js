@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
+const checkProfile = require('../middleware/check-profile');
 
-const OrdersController = require('../controllers/orders');
-// const OrderPostController = require('../controllers/order/OrderPostController');
-// const ProductByIdService = require('../service/productOrderById');
-// const OrderStatusPostController = require('../controllers/OrderStatusPostController');
-// const OrderPostResource = require('../resources/OrderPostResource');
+const GetSingleOrderController = require('../controllers/order/GetSingleOrderController');
 const OrderPostBasketController = require('../controllers/order/OrderPostBasketController');
 const OrderItemPostController = require('../controllers/order/OrderItemPostController');
 const DirectOrderHeaderPostController = require('../controllers/order/DirectOrderHeaderPostController');
@@ -16,20 +13,13 @@ const MyStoreOrderGetController = require('../controllers/order/MyStoreOrderGetC
 const MyOrderResource = require('../resources/MyOrderResource');
 
 
-// Handle incoming GET requests to /orders
-router.get('/', checkAuth, OrdersController.orders_get_all );
-
 router.get('/myorders', checkAuth, MyOrderController, MyOrderResource);
 router.get('/mystoreorders', checkAuth, MyStoreOrderGetController, MyOrderResource);
 
-router.post('/',checkAuth,OrderPostBasketController, OrderItemPostController);
-// router.post('/', checkAuth, ProductByIdService ,OrderPostController, OrderStatusPostController
-//         , OrderPostResource);
+router.post('/',checkAuth,checkProfile,OrderPostBasketController, OrderItemPostController);
 
-router.post('/direct',checkAuth, DirectOrderHeaderPostController, DirectOrderItemPostController);
+router.post('/direct',checkAuth, checkProfile,DirectOrderHeaderPostController, DirectOrderItemPostController);
 
-router.get('/:orderId', checkAuth, OrdersController.orders_get_order);
-
-router.delete('/:orderId', checkAuth, OrdersController.orders_delete_order);
+router.get('/:orderId', checkAuth, GetSingleOrderController,MyOrderResource);
 
 module.exports = router;

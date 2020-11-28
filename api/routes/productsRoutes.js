@@ -1,19 +1,25 @@
 const express = require("express");
 const router = express.Router();
 
-
 const checkAuth = require('../middleware/check-auth');
-const ProductController = require("../controllers/products");
+const checkProfile = require('../middleware/check-profile');
 const UploadService = require("../service/upload_image");
-const CurrentProduct = require("../service/productById");
+const CurrentProduct = require("../controllers/product/ProductById");
 //const ProductImagePostController = require("../controllers/productImagePostController");
-const ProductPostController = require("../controllers/productPostController");
-const ProductQuantityPostController = require("../controllers/ProductQuantityPostController");
+const ProductPostController = require("../controllers/product/ProductPostController");
+const ProductQuantityPostController = require("../controllers/productQty/ProductQuantityPostController");
+const ProductQuantityPatchController = require("../controllers/productQty/ProductQuantityPatchController");
 const GetMyProductController = require("../controllers/product/GetMyProductController");
 const MyProductResource = require("../resources/MyProductResource");
-const ProductResource = require("../resources/productResource");
+const AllProductResource = require("../resources/AllProductResource");
+const GetAllProductController = require("../controllers/product/GetAllProductController");
+const ProductGetController = require("../controllers/product/ProductGetController");
+const ProductPatchController = require("../controllers/product/ProductPatchController");
+const ProductDeleteController = require("../controllers/product/ProductDeleteController");
+const ProductResource = require("../resources/ProductResource");
 
-router.get("/", checkAuth, ProductController.allProduct);
+
+router.get("/", checkAuth, GetAllProductController,AllProductResource);
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
 //single adalah bawaan multer library, bisa juga array
@@ -21,17 +27,17 @@ router.get("/", checkAuth, ProductController.allProduct);
 router.post("/", checkAuth, UploadService.array('productImage',4) ,ProductPostController
     ,ProductQuantityPostController ,ProductPostImageController,ProductResource);
 */
-router.post("/", checkAuth, ProductPostController
+router.post("/", checkAuth, checkProfile, ProductPostController
     ,ProductQuantityPostController ,ProductResource);
 
 router.get("/myproducts", checkAuth, GetMyProductController,MyProductResource);
 
-router.get("/:productId", checkAuth, ProductController.productGet);
+router.get("/:productId", checkAuth, ProductGetController,MyProductResource);
 
-router.post("/:productId", checkAuth, UploadService.array('productImage'), CurrentProduct,
-    ProductController.productPatch);
+router.post("/:productId", checkAuth, checkProfile, UploadService.array('productImage'), ProductQuantityPatchController,
+    CurrentProduct, ProductPatchController, MyProductResource);
 
-router.delete("/:productId", checkAuth, CurrentProduct, ProductController.deleteProduct);
+router.delete("/:productId", checkAuth, ProductDeleteController);
 
 
 module.exports = router;
