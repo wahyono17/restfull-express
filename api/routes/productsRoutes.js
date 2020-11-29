@@ -7,7 +7,7 @@ const totalPage = require('../controllers/product/countAllProduct');
 const totalMyPage = require('../controllers/product/countMyProduct');
 const UploadService = require("../service/upload_image");
 const CurrentProduct = require("../controllers/product/ProductById");
-//const ProductImagePostController = require("../controllers/productImagePostController");
+const ProductImagePostController = require("../controllers/productImagePostController");
 const ProductPostController = require("../controllers/product/ProductPostController");
 const ProductQuantityPostController = require("../controllers/productQty/ProductQuantityPostController");
 const ProductQuantityPatchController = require("../controllers/productQty/ProductQuantityPatchController");
@@ -30,7 +30,7 @@ router.post("/", checkAuth, UploadService.array('productImage',4) ,ProductPostCo
     ,ProductQuantityPostController ,ProductPostImageController,ProductResource);
 */
 router.post("/", checkAuth, checkProfile, UploadService.array('productImage',4), ProductPostController
-    ,ProductQuantityPostController ,ProductResource);
+    ,ProductQuantityPostController ,ProductImagePostController ,ProductResource);
 
 router.get("/myproducts", checkAuth, GetMyProductController,totalMyPage,MyProductResource);
 
