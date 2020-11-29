@@ -1,4 +1,12 @@
 const myProductResource = (req,res,next)=>{
+    const limit = req.query.limit;
+    const page = req.query.page;
+    let nextpage = 0;
+    if(Math.round(req.totaldata / limit) > page){
+        nextpage = page + 1;
+    }else{
+        nextpage = page;
+    }
 
     let arrayResult = [];
     req.product.forEach(element => {
@@ -22,8 +30,13 @@ const myProductResource = (req,res,next)=>{
             quantity:balanceProduct,
         })
     });
+
     res.status(200).json({
         data:arrayResult,
+        curentpage:page,
+        perpage:limit,
+        nextpage:nextpage,
+        totalpage:Math.round(req.totaldata / limit),
         status : 200,
     })
 }

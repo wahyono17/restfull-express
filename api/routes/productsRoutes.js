@@ -3,6 +3,8 @@ const router = express.Router();
 
 const checkAuth = require('../middleware/check-auth');
 const checkProfile = require('../middleware/check-profile');
+const totalPage = require('../controllers/product/countAllProduct');
+const totalMyPage = require('../controllers/product/countMyProduct');
 const UploadService = require("../service/upload_image");
 const CurrentProduct = require("../controllers/product/ProductById");
 //const ProductImagePostController = require("../controllers/productImagePostController");
@@ -19,7 +21,7 @@ const ProductDeleteController = require("../controllers/product/ProductDeleteCon
 const ProductResource = require("../resources/ProductResource");
 
 
-router.get("/", checkAuth, GetAllProductController,AllProductResource);
+router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
 //single adalah bawaan multer library, bisa juga array
@@ -27,10 +29,10 @@ router.get("/", checkAuth, GetAllProductController,AllProductResource);
 router.post("/", checkAuth, UploadService.array('productImage',4) ,ProductPostController
     ,ProductQuantityPostController ,ProductPostImageController,ProductResource);
 */
-router.post("/", checkAuth, checkProfile, ProductPostController
+router.post("/", checkAuth, checkProfile, UploadService.array('productImage',4), ProductPostController
     ,ProductQuantityPostController ,ProductResource);
 
-router.get("/myproducts", checkAuth, GetMyProductController,MyProductResource);
+router.get("/myproducts", checkAuth, GetMyProductController,totalMyPage,MyProductResource);
 
 router.get("/:productId", checkAuth, ProductGetController,MyProductResource);
 

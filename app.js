@@ -4,6 +4,7 @@ const morgan = require('morgan');//ini untuk logger
 const bodyParser = require("body-parser"); //untuk menangkap http request dari http
 const { check, validationResult } = require('express-validator');
 const mongoose = require("mongoose");
+const paginate = require('express-paginate');
 
 const productRoutes = require('./api/routes/productsRoutes');
 const orderRoutes = require('./api/routes/ordersRoutes');
@@ -42,6 +43,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use(paginate.middleware(10, 50));
 
 app.use('/products', productRoutes); //semua ke /product akan di lempar ke productRoutes
 app.use('/orders', orderRoutes);

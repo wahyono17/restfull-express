@@ -3,6 +3,10 @@ const Product = require("../../models/product");
 
 const myProduct = (req,res,next)=>{
   const ids = req.userData.userId;
+  const limit = req.query.limit;
+  const page = req.query.page;
+  const skip = limit * (page -1);
+
   Product.aggregate([
     {
       $match:{
@@ -10,6 +14,8 @@ const myProduct = (req,res,next)=>{
           status:{$nin:['X']}
       }
     },
+    {$limit:limit + skip},
+    {$skip:skip},
     {
       $lookup:{
         from:"productquantities",
