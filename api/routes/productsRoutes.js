@@ -8,6 +8,8 @@ const totalMyPage = require('../controllers/product/countMyProduct');
 const UploadService = require("../service/upload_image");
 const CurrentProduct = require("../controllers/product/ProductById");
 const ProductImagePostController = require("../controllers/productImagePostController");
+const PostImageToCloud = require('../controllers/productImage/postImageToCloudController');
+const RemoveImageWasUpload = require('../controllers/productImage/removeImageWasUploadController');
 const ProductPostController = require("../controllers/product/ProductPostController");
 const ProductQuantityPostController = require("../controllers/productQty/ProductQuantityPostController");
 const ProductQuantityPatchController = require("../controllers/productQty/ProductQuantityPatchController");
@@ -25,12 +27,10 @@ router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource)
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
 //single adalah bawaan multer library, bisa juga array
-/*
-router.post("/", checkAuth, UploadService.array('productImage',4) ,ProductPostController
-    ,ProductQuantityPostController ,ProductPostImageController,ProductResource);
-*/
-router.post("/", checkAuth, checkProfile, UploadService.array('productImage',4), ProductPostController
-    ,ProductQuantityPostController ,ProductImagePostController ,ProductResource);
+
+router.post("/", checkAuth, checkProfile, UploadService.array('productImage',4), PostImageToCloud
+    ,ProductPostController,ProductQuantityPostController ,ProductImagePostController ,RemoveImageWasUpload
+    ,ProductResource);
 
 router.get("/myproducts", checkAuth, GetMyProductController,totalMyPage,MyProductResource);
 

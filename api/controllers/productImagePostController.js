@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const ProductImage = require("../models/productImage");
 
-
 const postImage = (req,res,next)=>{
     //console.log(req.files);
     let arrayImage = [];
