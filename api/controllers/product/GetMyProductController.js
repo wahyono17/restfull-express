@@ -23,6 +23,14 @@ const myProduct = (req,res,next)=>{
         foreignField:"product_id",
         as: "quantity_docs"
       }
+    },
+    {
+      $lookup:{
+        from:"productimages",
+        localField:"_id",
+        foreignField:"product_id",
+        as:"image_docs",
+      }
     }
   ])
   .exec()

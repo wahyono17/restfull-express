@@ -20,6 +20,13 @@ const allProductResource = (req,res,next)=>{
 
         //console.log(balanceProduct);
 
+        //ini untuk looping gambar
+        let arrayImage = [];
+        element.image_docs.forEach(image=>{
+            const filename = image.filename
+            arrayImage.push({filename:`https://storage.googleapis.com/jsimage/${filename}`});
+        });
+
         arrayResult.push({
             _id:element._id,
             store_id:element.profile[0].user_id,
@@ -30,6 +37,7 @@ const allProductResource = (req,res,next)=>{
             price:element.price,
             fprice:'Rp ' + new Intl.NumberFormat().format(element.price),
             quantity:balanceProduct,
+            image:arrayImage,
         })
     });
 

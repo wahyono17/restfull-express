@@ -1,4 +1,11 @@
 const productResource = (req,res,next)=>{
+    //ini untuk looping gambar
+    let arrayImage = [];
+    req.files.forEach(image=>{
+        const filename = image.filename
+        arrayImage.push({filename:`https://storage.googleapis.com/jsimage/${filename}`});
+    });
+
     res.status(201).json({
         data:{
             _id: req.product._id,
@@ -8,6 +15,7 @@ const productResource = (req,res,next)=>{
             quantity:req.productQty.quantity,
             price: req.product.price,
             fprice:'Rp ' + new Intl.NumberFormat().format(req.product.price),
+            image:arrayImage,
         },
         status : 201
     })

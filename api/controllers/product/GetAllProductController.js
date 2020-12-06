@@ -32,6 +32,14 @@ const allProduct = (req,res,next)=>{
           as: "profile"
       }
     },
+    {
+      $lookup:{
+        from:"productimages",
+        localField:"_id",
+        foreignField:"product_id",
+        as:"image_docs",
+      }
+    }
   ])
   .exec()
   .then(docs=>{

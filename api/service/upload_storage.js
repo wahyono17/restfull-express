@@ -21,7 +21,7 @@ const uploadImage = (files) => new Promise((resolve, reject) => {
 
     // ini yang di kirim ke return
         // const publicUrl = format(
-        //   `https://storage.googleapis.com/${bucket.name}/${filename}`
+          // `https://storage.googleapis.com/${bucket.name}/${filename}`
         // )
 
     arrayPicture.push(picture);
