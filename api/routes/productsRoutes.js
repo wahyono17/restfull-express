@@ -7,7 +7,9 @@ const totalPage = require('../controllers/product/countAllProduct');
 const totalMyPage = require('../controllers/product/countMyProduct');
 const UploadService = require("../service/upload_image");
 const CurrentProduct = require("../controllers/product/ProductById");
-const ProductImagePostController = require("../controllers/productImagePostController");
+const ProductImagePostController = require("../controllers/productImage/productImagePostController");
+const ProductRemoveImageController = require("../controllers/productImage/productRemoveImageController");
+const ProductPatchImageController = require("../controllers/productImage/productPatchImageController");
 const PostImageToCloud = require('../controllers/productImage/postImageToCloudController');
 const RemoveImageWasUpload = require('../controllers/productImage/removeImageWasUploadController');
 const ProductPostController = require("../controllers/product/ProductPostController");
@@ -16,12 +18,16 @@ const ProductQuantityPatchController = require("../controllers/productQty/Produc
 const GetMyProductController = require("../controllers/product/GetMyProductController");
 const MyProductResource = require("../resources/MyProductResource");
 const AllProductResource = require("../resources/AllProductResource");
+const SingleProductResource = require("../resources/singleProductResource");
 const GetAllProductController = require("../controllers/product/GetAllProductController");
 const ProductGetController = require("../controllers/product/ProductGetController");
 const ProductPatchController = require("../controllers/product/ProductPatchController");
 const ProductDeleteController = require("../controllers/product/ProductDeleteController");
 const ProductResource = require("../resources/ProductResource");
 
+const test = require("../controllers/product/test");
+
+router.get("/test",test);
 
 router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
 
@@ -34,10 +40,11 @@ router.post("/", checkAuth, checkProfile, UploadService.array('productImage',4),
 
 router.get("/myproducts", checkAuth, GetMyProductController,totalMyPage,MyProductResource);
 
-router.get("/:productId", checkAuth, ProductGetController,MyProductResource);
+router.get("/:productId", checkAuth, ProductGetController,SingleProductResource);
 
-router.post("/:productId", checkAuth, checkProfile, UploadService.array('productImage'), ProductQuantityPatchController,
-    CurrentProduct, ProductPatchController, MyProductResource);
+router.post("/:productId", checkAuth, checkProfile, UploadService.array('productImage',4),PostImageToCloud
+    ,CurrentProduct,ProductQuantityPatchController,ProductRemoveImageController,ProductPatchImageController
+    ,RemoveImageWasUpload,ProductPatchController);
 
 router.delete("/:productId", checkAuth, ProductDeleteController);
 

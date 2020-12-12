@@ -1,6 +1,5 @@
 const Profile = require("../../models/profile");
 const mongoose = require('mongoose');
-const { count } = require("../../models/profile");
 
 const postProfile = (req,res,next)=>{
     const ids = new mongoose.Types.ObjectId(req.userData.userId);

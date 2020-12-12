@@ -20,7 +20,11 @@ module.exports = (req,res,next)=>{
         rejects(err=>(err))
     });
 
-    removeImage(req.picture)
+    //jika ada gambar yang dikirim maka bisa di hapus, jika tidak maka itu edit tanpa kirim gambar
+    const arrayPicture = req.files;
+    if( arrayPicture.length >0 ){
+      // res.send(req.picture);
+      removeImage(req.picture)
         .then(result=>{
             // res.send(result);
             next();
@@ -31,5 +35,7 @@ module.exports = (req,res,next)=>{
               error: err, status:500, message:"unlink unsucced"
             });
           })
-
+    }else{
+      next();
+    }
 }

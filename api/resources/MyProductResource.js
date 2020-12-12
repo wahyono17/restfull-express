@@ -24,7 +24,10 @@ const myProductResource = (req,res,next)=>{
         let arrayImage = [];
         element.image_docs.forEach(image=>{
             const filename = image.filename
-            arrayImage.push({filename:`https://storage.googleapis.com/jsimage/${filename}`});
+            arrayImage.push(
+                {_id:image._id,
+                filename:`https://storage.googleapis.com/jsimage/${filename}`}
+            );
         });
 
         arrayResult.push({

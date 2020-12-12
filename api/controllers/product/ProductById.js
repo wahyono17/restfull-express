@@ -3,7 +3,6 @@ const Product = require("../../models/product");
 const producById = (req,res,next) =>{
     const id = req.params.productId;
     Product.findById(id)
-      .select("productImage")
       .exec()
       .then(doc => {
         if (doc) {

@@ -3,6 +3,7 @@ const Product = require("../../models/product");
 
 const productGet = (req, res, next) => {
     const id = req.params.productId;
+    // res.send(id);
     Product.aggregate([
       {
         $match:{
@@ -16,12 +17,19 @@ const productGet = (req, res, next) => {
           foreignField:"product_id",
           as: "quantity_docs"
         }
+      },
+      {
+        $lookup:{
+          from:"productimages",
+          localField:"_id",
+          foreignField:"product_id",
+          as:"image_docs",
+        }
       }
     ])
     .exec()
     .then(docs=>{
-      //res.send(docs);
-
+      // res.send(docs);
       req.product = docs;
       next();
     })

@@ -23,10 +23,3 @@ const productResource = (req,res,next)=>{
 
 module.exports = productResource;
 
-/*
-productImage:req.image.map(function(Element){
-                return {
-                    filename : Element.filename
-                }
-            }),
-*/
