@@ -9,6 +9,7 @@ const postImage = (req,res,next)=>{
         req.files.forEach(element => {
             productImage = new ProductImage({
                 _id: new mongoose.Types.ObjectId(),
+                user_id: req.userData.userId,
                 product_id : id,
                 filename : element.filename,
             });

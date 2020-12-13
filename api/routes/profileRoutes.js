@@ -7,6 +7,7 @@ const validationProfileName = require('../controllers/profile/validationProfileN
 const ProfileResource = require('../resources/ProfilePostResource')
 
 router.get('/', checkAuth, MyProfileController);
-router.post('/', checkAuth, validationProfileName,UpdateOrCreateProfileController,ProfileResource);
+router.post('/', checkAuth, validationProfileName.validate('postProfile'), validationProfileName.findName,
+    UpdateOrCreateProfileController,ProfileResource);
 
 module.exports = router;

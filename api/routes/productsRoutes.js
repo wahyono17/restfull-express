@@ -23,6 +23,7 @@ const GetAllProductController = require("../controllers/product/GetAllProductCon
 const ProductGetController = require("../controllers/product/ProductGetController");
 const ProductPatchController = require("../controllers/product/ProductPatchController");
 const ProductDeleteController = require("../controllers/product/ProductDeleteController");
+const validationProduct = require('../controllers/product/validationProductController');
 const ProductResource = require("../resources/ProductResource");
 
 const test = require("../controllers/product/test");
@@ -34,7 +35,7 @@ router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource)
 //upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
 //single adalah bawaan multer library, bisa juga array
 
-router.post("/", checkAuth, checkProfile, UploadService.array('productImage',4), PostImageToCloud
+router.post("/", checkAuth, checkProfile,UploadService.array('productImage',4),PostImageToCloud
     ,ProductPostController,ProductQuantityPostController ,ProductImagePostController ,RemoveImageWasUpload
     ,ProductResource);
 

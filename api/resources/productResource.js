@@ -1,9 +1,12 @@
 const productResource = (req,res,next)=>{
     //ini untuk looping gambar
     let arrayImage = [];
-    req.files.forEach(image=>{
+    req.image.forEach(image=>{
         const filename = image.filename
-        arrayImage.push({filename:`https://storage.googleapis.com/jsimage/${filename}`});
+        arrayImage.push(
+            {_id:image._id,
+            filename:`https://storage.googleapis.com/jsimage/${filename}`}
+        );
     });
 
     res.status(201).json({

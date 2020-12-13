@@ -13,6 +13,7 @@ const userRoutes = require('./api/routes/userRoutes');
 const orderStatusRoutes = require('./api/routes/orderStatusRoutes');
 const basketRoutes = require('./api/routes/basketRoutes');
 const profileRoutes = require('./api/routes/profileRoutes');
+const productImage = require('./api/routes/productImageRoutes');
 
 mongoose.connect(
 //process.env.MONGO_ATLAS_PW ada di nodemon.json
@@ -52,6 +53,7 @@ app.use("/user", userRoutes);
 app.use("/orderstatus",orderStatusRoutes);
 app.use("/basket",basketRoutes);
 app.use("/profile",profileRoutes);
+app.use('/productimage',productImage);
 
 //ini artinya jika request yg tidak di tangkap oleh manapun
 app.use((req,res,next)=>{

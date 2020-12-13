@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const productSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    user_id:{type:mongoose.Types.ObjectId,ref:'User',required:true},
     product_id:{type:mongoose.Types.ObjectId,ref:'Product',required:true},
     filename: {type:String, require:true},
 });

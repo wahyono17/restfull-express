@@ -8,6 +8,7 @@ const postImage = (req,res,next)=>{
         req.files.forEach(element => {
             productImage = new ProductImage({
                 _id: new mongoose.Types.ObjectId(),
+                user_id: req.userData.userId,
                 product_id : req.product._id,
                 filename : element.filename,
             });
@@ -15,7 +16,8 @@ const postImage = (req,res,next)=>{
         });
 
         ProductImage.insertMany(arrayImage,(erros,doct)=>{
-            req.image = doct;
+            // console.log(doct);
+            req.image = arrayImage;
             next();
         })
     }else{
