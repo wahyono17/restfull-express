@@ -28,7 +28,7 @@ const ProductResource = require("../resources/ProductResource");
 
 const test = require("../controllers/product/test");
 
-router.get("/test",test);
+router.get("/test",validationProduct.findName);
 
 router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
 
