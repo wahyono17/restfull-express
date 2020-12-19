@@ -28,24 +28,22 @@ const ProductResource = require("../resources/ProductResource");
 
 const test = require("../controllers/product/test");
 
-router.get("/test",validationProduct.findName);
-
 router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
 //single adalah bawaan multer library, bisa juga array
 
-router.post("/", checkAuth, checkProfile,UploadService.array('productImage',4),PostImageToCloud
-    ,ProductPostController,ProductQuantityPostController ,ProductImagePostController ,RemoveImageWasUpload
-    ,ProductResource);
+router.post("/", checkAuth, checkProfile,UploadService.array('productImage',4),validationProduct
+    ,PostImageToCloud,ProductPostController,ProductQuantityPostController ,ProductImagePostController
+    ,RemoveImageWasUpload,ProductResource);
 
 router.get("/myproducts", checkAuth, GetMyProductController,totalMyPage,MyProductResource);
 
 router.get("/:productId", checkAuth, ProductGetController,SingleProductResource);
 
-router.post("/:productId", checkAuth, checkProfile, UploadService.array('productImage',4),PostImageToCloud
-    ,CurrentProduct,ProductQuantityPatchController,ProductRemoveImageController,ProductPatchImageController
-    ,RemoveImageWasUpload,ProductPatchController);
+router.post("/:productId", checkAuth, checkProfile, UploadService.array('productImage',4),validationProduct
+    ,PostImageToCloud,CurrentProduct,ProductQuantityPatchController,ProductRemoveImageController
+    ,ProductPatchImageController,RemoveImageWasUpload,ProductPatchController);
 
 router.delete("/:productId", checkAuth, ProductDeleteController);
 

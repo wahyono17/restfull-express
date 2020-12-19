@@ -1,7 +1,7 @@
-const util = require('util')
-const gc = require('../../config')
-const bucket = gc.bucket('jsimage')//bucket name di google drive
-const path = require('path')
+const util = require('util');
+const gc = require('../../config');
+const bucket = gc.bucket('jsimage');//bucket name di google drive
+const path = require('path');
 
 const { format } = util
 
@@ -12,7 +12,7 @@ const uploadImage = (files) => new Promise((resolve, reject) => {
   let arrayPicture = [];
   files.forEach(element => {
 
-    const {filename} = element
+    const {filename} = element;
     // console.log(filename);
     const picture = path.join(__dirname,'../../uploads',filename);
 
