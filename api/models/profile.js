@@ -5,6 +5,7 @@ const orderSchema = mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     name:{type:String},
     mobile:{type:String},
+    kecamatan_id:{type:String},
     address:{type:String}
 });
 

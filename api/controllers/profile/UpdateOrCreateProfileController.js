@@ -12,22 +12,12 @@ const postProfile = (req,res,next)=>{
             Profile.updateOne({user_id:ids},{
                 name:req.body.name,
                 mobile:req.body.mobile,
+                kecamatan_id:req.body.kecamatan_id,
                 address:req.body.address,
             })
             .exec()
-            .then(updateResult=>{
-                Profile.findOne({user_id:ids})
-                .exec()
-                .then(findResult=>{
-                    req.profile = findResult;
-                    next();
-                })
-                .catch(err => {
-                    // console.log(err);
-                    res.status(500).json({
-                      error: err, status:500
-                    });
-                  });
+            .then(result=>{
+              next();
             })
             .catch(err => {
                 // console.log(err);
@@ -41,12 +31,12 @@ const postProfile = (req,res,next)=>{
                 user_id:ids,
                 name:req.body.name,
                 mobile:req.body.mobile,
+                kecamatan_id:req.body.kecamatan_id,
                 address:req.body.address,
             })
             .save()
             //.exec()
             .then(createResult=>{
-                req.profile = createResult;
                 next();
             })
             .catch(err => {

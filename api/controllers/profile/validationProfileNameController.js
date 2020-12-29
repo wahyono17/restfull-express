@@ -1,24 +1,20 @@
 const Profile = require("../../models/profile");
 const mongoose = require('mongoose');
-const { check, validationResult } = require("express-validator");
 
-exports.validate = (method) => {
-    switch (method) {
-      case 'postProfile': {
-       return [
-        check('name').isLength({min:1}),
-         ]
-      }
-    }
-  }
 
 //cari apakah ada nama yang sama untuk id yang bukan ini, jika ada maka return json error
 exports.findName = (req,res,next)=>{
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({error: "nama harus diisi"});
-    }
-    //selesai validasi
+    const arrayText = [
+        {column:req.body.name, show:"nama"},
+        {column:req.body.kecamatan_id, show:"kecamatan"},
+    ];
+    arrayText.forEach(element => {
+        if(element.column==""){
+            res.status(400).json({
+                error:`${element.show} tidak boleh kosong`, status:400
+            });
+        }
+    });
 
     const ids = new mongoose.Types.ObjectId(req.userData.userId);
 

@@ -26,7 +26,7 @@ const ProductDeleteController = require("../controllers/product/ProductDeleteCon
 const validationProduct = require('../controllers/product/validationProductController');
 const ProductResource = require("../resources/ProductResource");
 
-const test = require("../controllers/product/test");
+
 
 router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
 
