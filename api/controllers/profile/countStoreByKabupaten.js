@@ -4,17 +4,12 @@ const mongoose = require('mongoose');
 module.exports = (req,res,next)=>{
     const ids = req.userData.userId;
     const kabupatenId = req.params.kabupatenId;
-    const limit = req.query.limit ? req.query.limit:15 ;
-    const page = req.query.page ? req.query.page:1 ;
-    const skip = limit * (page -1);
     Profile.aggregate([
     {
         $match:{
             user_id:{$ne:[new mongoose.Types.ObjectId(ids)]}
         }
     },
-    // {$limit:limit + skip},
-    // {$skip:skip},
     {
         $lookup:{
             from:"kecamatans",
@@ -33,18 +28,20 @@ module.exports = (req,res,next)=>{
         $match:{
             'kecamatan.kabupaten_id':kabupatenId
         }
+    },
+    {
+        $count: "totalData"
     }
     ])
     .exec()
     .then(result=>{
-        // res.send(result);
-        req.profiles = result;
+        req.totaldata =  result[0]['totalData'];
         next();
     })
     .catch(err => {
         // console.log(err);
         res.status(500).json({
-          error: err, status:500, message:"list store by kabupaten fail"
+          error: err, status:500, message:"count store by kabupaten fail"
         });
     });
 }

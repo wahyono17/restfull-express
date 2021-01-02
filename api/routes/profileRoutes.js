@@ -12,7 +12,9 @@ const myListKecamatan = require('../controllers/profile/myListKecamatanControlle
 const myListKabupaten = require('../controllers/profile/myListKabupatenController');
 const storeByKecamatan = require('../controllers/profile/storeByKecamatanController');
 const storeByKecamatanResource = require('../resources/storeByKecamatanResource');
+const storeByKabupatenResource = require('../resources/storeByKabupatenResource');
 const countStoreByKecamatan = require('../controllers/profile/countStoreByKecamatan');
+const countStoreByKabupaten = require('../controllers/profile/countStoreByKabupaten');
 const storeByKabupaten = require('../controllers/profile/storeByKabupatenController');
 // const test = require('../controllers/profile/test'); //ini untuk memasukan list kecamatan,kabupaten ke database
 
@@ -30,6 +32,6 @@ router.get('/mylistkecamatan', checkAuth, MyProfileController,myListKecamatan);
 router.get('/mylistkabupaten', checkAuth, MyProfileController,myListKabupaten);
 
 router.get('/store/kecamatan/:kecamatanId',checkAuth,storeByKecamatan,countStoreByKecamatan,storeByKecamatanResource);
-router.get('/store/kabupaten/:kabupatenId',checkAuth,storeByKabupaten);
+router.get('/store/kabupaten/:kabupatenId',checkAuth,countStoreByKabupaten,storeByKabupaten,storeByKabupatenResource);
 
 module.exports = router;

@@ -16,10 +16,10 @@ const profileResource = (req,res,next)=>{
             name: element.name,
             mobile: element.mobile,
             address: element.address,
-            provinsi_id: element.kecamatan[0] ? element.kecamatan[0].provinsi_id : null,
-            kabupaten_id: element.kecamatan[0] ? element.kecamatan[0].kabupaten_id : null,
+            provinsi_id: element.kecamatan ? element.kecamatan.provinsi_id : null,
+            kabupaten_id: element.kecamatan ? element.kecamatan.kabupaten_id : null,
             kecamatan_id : element.kecamatan_id,
-            kecamatan_name : element.kecamatan[0] ? element.kecamatan[0].name : null,
+            kecamatan_name : element.kecamatan ? element.kecamatan.name : null,
         })
     });
 

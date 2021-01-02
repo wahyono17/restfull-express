@@ -3,6 +3,7 @@ const Product = require("../../models/product");
 
 const allProduct = (req,res,next)=>{
   const ids = req.userData.userId;
+  const name = req.query.name;
   const limit = req.query.limit;
   const page = req.query.page;
   const skip = limit * (page -1);
@@ -12,6 +13,7 @@ const allProduct = (req,res,next)=>{
       $match:{
           user_id:{$nin:[new mongoose.Types.ObjectId(ids)]},
           status:{$nin:['X']},
+          name:{"$regex":name,"$options": "i"}
       }
     },
     {$limit:limit + skip},

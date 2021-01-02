@@ -47,7 +47,7 @@ const myProductResource = (req,res,next)=>{
         curentpage:page,
         perpage:limit,
         nextpage:nextpage,
-        totalpage:Math.round(req.totaldata / limit),
+        totalpage:Math.ceil(req.totaldata / limit),
         status : 200,
     })
 }

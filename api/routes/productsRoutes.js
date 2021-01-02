@@ -4,7 +4,10 @@ const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 const checkProfile = require('../middleware/check-profile');
 const totalPage = require('../controllers/product/countAllProduct');
+const totalProductByName = require('../controllers/product/countProductByName');
 const totalMyPage = require('../controllers/product/countMyProduct');
+const totalProductByStoreId = require('../controllers/product/countProductByStoreId');
+const totalProductByStoreIdName = require('../controllers/product/countProductByStoreIdName');
 const UploadService = require("../service/upload_image");
 const CurrentProduct = require("../controllers/product/ProductById");
 const ProductImagePostController = require("../controllers/productImage/productImagePostController");
@@ -24,11 +27,15 @@ const ProductGetController = require("../controllers/product/ProductGetControlle
 const ProductPatchController = require("../controllers/product/ProductPatchController");
 const ProductDeleteController = require("../controllers/product/ProductDeleteController");
 const validationProduct = require('../controllers/product/validationProductController');
+const allProductByStoreId = require('../controllers/product/GetAllProductByStoreId');
+const productByStoreIdName = require('../controllers/product/GetProductByStoreIdName');
+const findProductByName = require('../controllers/product/findProductByNameController');
 const ProductResource = require("../resources/ProductResource");
 
 
 
 router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
+router.get("/name",checkAuth, findProductByName,totalProductByName,AllProductResource);
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
 //single adalah bawaan multer library, bisa juga array
@@ -38,6 +45,8 @@ router.post("/", checkAuth, checkProfile,UploadService.array('productImage',4),v
     ,RemoveImageWasUpload,ProductResource);
 
 router.get("/myproducts", checkAuth, GetMyProductController,totalMyPage,MyProductResource);
+router.get("/store/:storeId", checkAuth, allProductByStoreId,totalProductByStoreId,MyProductResource);
+router.get("/name/store/:storeId", checkAuth, productByStoreIdName,totalProductByStoreIdName,MyProductResource);
 
 router.get("/:productId", checkAuth, ProductGetController,SingleProductResource);
 

@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Product = require("../../models/product");
 
-const allProduct = (req,res,next)=>{
-  const ids = req.userData.userId;
+const myProduct = (req,res,next)=>{
+  const ids = req.params.storeId;
   const limit = req.query.limit;
   const page = req.query.page;
   const skip = limit * (page -1);
@@ -10,8 +10,8 @@ const allProduct = (req,res,next)=>{
   Product.aggregate([
     {
       $match:{
-          user_id:{$nin:[new mongoose.Types.ObjectId(ids)]},
-          status:{$nin:['X']},
+          user_id:new mongoose.Types.ObjectId(ids),
+          status:{$nin:['X']}
       }
     },
     {$limit:limit + skip},
@@ -22,14 +22,6 @@ const allProduct = (req,res,next)=>{
         localField:"_id",
         foreignField:"product_id",
         as: "quantity_docs"
-      }
-    },
-    {
-      $lookup:{
-          from:"profiles",
-          localField:"user_id",
-          foreignField:"user_id",
-          as: "profile"
       }
     },
     {
@@ -56,4 +48,4 @@ const allProduct = (req,res,next)=>{
   });
 }
 
-module.exports = allProduct;
+module.exports = myProduct;
