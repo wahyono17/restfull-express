@@ -51,7 +51,7 @@ exports.user_login = (req, res, next) => {
       .exec()
       .then(user => {
         console.log(user);//ini tambahan dari wahyono untuk cek user berupa array rubah jadi findOne saja next
-        if (user.length < 1) {
+        if (user == null) {
           return res.status(401).json({
             message: "Auth failed"
           });
@@ -75,7 +75,8 @@ exports.user_login = (req, res, next) => {
             );
             return res.status(200).json({
               message: "Auth successful",
-              token: token
+              token: token,
+              admin:user.admin,
             });
           }
           res.status(401).json({
