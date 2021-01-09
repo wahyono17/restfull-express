@@ -34,6 +34,7 @@ module.exports = (req,res,next)=>{
                 User.updateOne({ _id: id },{
                     password:hash,
                     admin:req.body.admin ? 1 : 0,
+                    date:Date.now(),
                 })
                 .exec()
                 .then(result => {
@@ -56,7 +57,7 @@ module.exports = (req,res,next)=>{
     .catch(err => {
         console.log(err);
         res.status(500).json({
-          error: err, message:"get id for user modify fail"
+          error: err, message:"user id not found"
         });
     });
 }
