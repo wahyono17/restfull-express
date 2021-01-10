@@ -1,5 +1,3 @@
-const orderHeader = require('../../models/orderHeader');
-// const mongoose = require('mongoose');
 const OrderHeader = require('../../models/orderHeader');
 
 const updateOrderStatus = (req,res,next)=>{
@@ -16,7 +14,7 @@ const updateOrderStatus = (req,res,next)=>{
         });
     });
 
-    next();//next langsung kirim pesan json dengan code awal yang dikirim, jika 2 cancel dan seterusnya
+    next();
 }
 
 module.exports = updateOrderStatus;

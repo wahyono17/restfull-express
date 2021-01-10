@@ -6,6 +6,7 @@ const productSchema = mongoose.Schema({
     order_id:{type:mongoose.Types.ObjectId,ref:'Order'},
     transaction_type:{type:Number,required:true},
     quantity: {type:Number, require:true},
+    date:{type:Date, default:Date.now()},
 });
 
 module.exports = mongoose.model('ProductQuantity', productSchema);
