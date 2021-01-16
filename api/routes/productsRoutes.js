@@ -30,7 +30,7 @@ const validationProduct = require('../controllers/product/validationProductContr
 const allProductByStoreId = require('../controllers/product/GetAllProductByStoreId');
 const productByStoreIdName = require('../controllers/product/GetProductByStoreIdName');
 const findProductByName = require('../controllers/product/findProductByNameController');
-const ProductResource = require("../resources/ProductResource");
+const ProductResource = require("../resources/productResource");
 const test = require('../controllers/product/test');
 
 
