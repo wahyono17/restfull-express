@@ -22,7 +22,7 @@ let moment = require('moment'); // require
 
 module.exports = (req,res,next) => {
     const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    const decoded = jwt.verify(token, "secret"); //process.env.JWT_KEY
     req.userData = decoded;
 
     User.findById(decoded.userId).exec()

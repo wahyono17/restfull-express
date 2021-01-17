@@ -17,10 +17,12 @@ const productImage = require('./api/routes/productImageRoutes');
 
 mongoose.connect(
 //process.env.MONGO_ATLAS_PW ada di nodemon.json
-"mongodb+srv://wahyono17:"+ process.env.MONGO_ATLAS_PW +
+"mongodb+srv://wahyono17:"+ "w@hyono123" +
 "@cluster0.vvjam.mongodb.net/cluster0?retryWrites=true&w=majority",{
     useNewUrlParser: true, useUnifiedTopology: true,
-});
+})
+// .then(() => console.log( 'Database Connected' ))
+// .catch(err => console.log( err ));
 //ini untuk implementasi full promise di mongoose
 mongoose.Promise = global.Promise;
 
