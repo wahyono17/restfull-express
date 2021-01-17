@@ -37,7 +37,11 @@ exports.BasketHeader = (req, res, next) => {
                 next();
                 //next post basket item
             })
-            .catch()
+            .catch(err => {
+                res.status(500).json({
+                    error: err
+                });
+            })
         }else{
             req.headerId = result._id;
             next();

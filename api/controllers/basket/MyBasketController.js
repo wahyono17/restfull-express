@@ -64,7 +64,11 @@ const MyBasket = (req,res,next)=>{
         //res.send(result);
         next();
     })
-    .catch()
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    })
 }
 
 module.exports =  MyBasket;

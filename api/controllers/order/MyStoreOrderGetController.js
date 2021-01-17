@@ -27,7 +27,7 @@ const myOrder = (req,res,next)=>{
             $match:{
                 "orderstatus.code":1//1 adalah code order created
             }
-        },  
+        },
         {
             $lookup:{
                 from:"profiles",
@@ -53,7 +53,11 @@ const myOrder = (req,res,next)=>{
             next(); //next ke MyOrderResource
         }
     )
-    .catch()
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    })
 }
 
 module.exports = myOrder;

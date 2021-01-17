@@ -53,7 +53,11 @@ const singleOrder = (req,res,next)=>{
             next(); //next ke MyOrderResource
         }
     )
-    .catch()
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    })
 }
 
 module.exports = singleOrder;
