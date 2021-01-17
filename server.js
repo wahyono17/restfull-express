@@ -7,3 +7,4 @@ const port = 3000;
 const server = http.createServer(app);//artinya create app sebagai server
 
 server.listen(port);
+console.log("node server running on port" + port);
