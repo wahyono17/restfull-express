@@ -36,7 +36,7 @@ const test = require('../controllers/product/test');
 
 router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
 router.get("/name",checkAuth, findProductByName,totalProductByName,AllProductResource);
-router.get("/test",checkAuth,test);
+router.get("/test",test);
 
 //upload didepan midleware lain artinya upload dulu baru midleware lain, array artinya upload beberapa file
 //single adalah bawaan multer library, bisa juga array
