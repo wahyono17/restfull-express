@@ -12,7 +12,7 @@ module.exports = (req,res,next) =>{
         // console.log(indonesia);
         // res.send(indonesia[0].id);
         //code sudah jalan klo di jalankan lagi jadi double
-    /*
+
         indonesia.forEach(element => {
             const provinsi = new Provinsi({
                 _id: new mongoose.Types.ObjectId(),
@@ -57,7 +57,7 @@ module.exports = (req,res,next) =>{
                         });
                 });
         });
-    */
+
         res.send("langsung return coba cek apakah sudah di save collection")
     });
 

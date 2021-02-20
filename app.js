@@ -15,15 +15,20 @@ const basketRoutes = require('./api/routes/basketRoutes');
 const profileRoutes = require('./api/routes/profileRoutes');
 const productImage = require('./api/routes/productImageRoutes');
 
-mongoose.connect(
-//process.env.MONGO_ATLAS_PW ada di nodemon.json
-"mongodb+srv://wahyono17:"+ "w@hyono123" +
-"@cluster0.vvjam.mongodb.net/cluster0?retryWrites=true&w=majority",{
-    useNewUrlParser: true, useUnifiedTopology: true,
-})
+// mongoose.connect(
+// //process.env.MONGO_ATLAS_PW ada di nodemon.json
+// "mongodb+srv://wahyono17:"+ "w@hyono123" +
+// "@cluster0.vvjam.mongodb.net/cluster0?retryWrites=true&w=majority",{
+//     useNewUrlParser: true, useUnifiedTopology: true,
+// })
 // .then(() => console.log( 'Database Connected' ))
 // .catch(err => console.log( err ));
-//ini untuk implementasi full promise di mongoose
+// //ini untuk implementasi full promise di mongoose
+// mongoose.Promise = global.Promise;
+
+mongoose.connect(
+    'mongodb://localhost:27017/myapp', {useNewUrlParser: true,useUnifiedTopology: true}
+)
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));//untuk membuat log, supaya bisa di baca

@@ -31,7 +31,8 @@ const allProductByStoreId = require('../controllers/product/GetAllProductByStore
 const productByStoreIdName = require('../controllers/product/GetProductByStoreIdName');
 const findProductByName = require('../controllers/product/findProductByNameController');
 const ProductResource = require("../resources/productResource");
-const test = require('../controllers/product/test');
+// const test = require('../controllers/product/test');
+const test = require('../controllers/profile/test');
 
 
 router.get("/", checkAuth, GetAllProductController,totalPage,AllProductResource);
